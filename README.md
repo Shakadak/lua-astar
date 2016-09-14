@@ -57,7 +57,7 @@ local goalD = function(n)
     return n == "D"
 end
 ```
-To avoid repeated call of the same function, we will define a `simpleAStar`
+To avoid repeated call of the same functions, we will define a `simpleAStar`
 in order to concern ourselves only with the goal and the start.
 ```
 local simpleAStar = aStar(expand, cost, heuristic)
