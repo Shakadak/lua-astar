@@ -9,4 +9,8 @@ graph["B"] = {"D"}
 graph["C"] = {"A", "E"}
 graph["E"] = {"C", "D"}
 
--- So we currently have the followin representation
+-- So we currently have the following representation
+-- A ↔ C ↔ E
+-- ↓     ⤢
+-- B → D
+
