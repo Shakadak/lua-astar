@@ -9,6 +9,8 @@ function clone(t)
   return r
 end
 
+local unpack = table.unpack or unpack
+
 -- for any function 'f', the following is true:
 --   curry(f)(x)(y)(z) == f(x, y, z)
 --
@@ -34,7 +36,7 @@ function curry(f)
         return docurry(ptbl, left, ...)
       end
     else
-      return f(table.unpack(ptbl))
+      return f(unpack(ptbl))
     end
   end
 
