@@ -1,7 +1,7 @@
 local modpath = ""
 for i = 1, select('#', ...) do
 	if modpath == "" then
-		modpath = select(i, ...):match(".+/")
+		modpath = select(i, ...):match(".+/") or ""
 	end
 end
 
