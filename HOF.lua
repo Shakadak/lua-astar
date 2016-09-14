@@ -34,7 +34,7 @@ function curry(f)
         return docurry(ptbl, left, ...)
       end
     else
-      return f(unpack(ptbl))
+      return f(table.unpack(ptbl))
     end
   end
 
