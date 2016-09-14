@@ -8,6 +8,7 @@ graph["A"] = {"B", "C"}
 graph["B"] = {"D"}
 graph["C"] = {"A", "E"}
 graph["E"] = {"C", "D"}
+graph["D"] = {"E"}
 
 -- So we currently have the following representation
 -- A ↔ C ↔ E
@@ -39,7 +40,7 @@ end
 -- Last, but not least, we need to define that, given a node, return whether we have
 -- reached our goal or not. As the first example, we will want to find the path
 -- from `A` to `D`
-local goal = function(n)
+local goalD = function(n)
     return n == "D"
 end
 
@@ -51,7 +52,7 @@ local simpleAStar = aStar(expand, cost, heuristic)
 -- just make sure to apply the arguments in the correct order
 
 -- We can now ask `simpleAStar` to find the path from `A` to `D`
-local path = simpleAStar(goal, "A")
+local path = simpleAStar(goalD, "A")
 
 -- The only thing left to do is display the path we found
 -- We do need a function to convert our path to something printable
@@ -67,4 +68,22 @@ local function pathToString(path)
     end
 end
 
+-- If everything worked fine, it should display `A → B → D`
 print(pathToString(path))
+
+-- Now we want the path to go from `D` to `A`
+-- For future reuse, we will define a curryied function that simply check
+-- if our node is in an array of node
+local function goal(targets)
+    return function(current)
+        for _, target in pairs(targets) do
+            if current == target then
+                return true
+            end
+        end
+        return false
+    end
+end
+
+-- this time we cannot pass by B, it should display `D → E → C → A`
+print(pathToString(simpleAStar(goal({"A"}), "D")))

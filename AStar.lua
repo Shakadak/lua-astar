@@ -31,32 +31,35 @@ end
 -- return nil in case of failure
 --        the ordered path in case of success, as an array
 local aStar = HOF.curry(function(expand, cost, heuristic, goal, start)
-	local open = PQ.new()
-	local closed = {}
-	local cameFrom = {}
-	local tCost = {}
+    local open = PQ.new()
+    local closed = {}
+    local cameFrom = {}
+    local tCost = {}
 
-	open:insert(0, start)
-	cameFrom[start] = nil
-	tCost[start] = 0
-	for current in PQ.pop, open do
-		if goal(current) then
-			return backtrack(current, cameFrom)
-		else
-			closed[current] = true
-			for _, neighbor in pairs(expand(current)) do
-				if not closed[neighbor] then
-					local tmpCost = tCost[current] + cost(current, neighbor)
-					if tCost[neighbor] == nil or tmpCost < tCost[neighbor] then
-						cameFrom[neighbor] = current
-						tCost[neighbor] = tmpCost
-						open:insert(tmpCost + heuristic(neighbor), neighbor)
-					end
-				end
-			end
-		end
-	end
-	return nil
+    open:insert(0, start)
+    cameFrom[start] = nil
+    tCost[start] = 0
+    for current in PQ.pop, open do
+        if goal(current) then
+            return backtrack(current, cameFrom)
+        else
+            closed[current] = true
+            local neighbors = expand(current)
+            if neighbors ~= nil then
+                for _, neighbor in pairs(neighbors) do
+                    if not closed[neighbor] then
+                        local tmpCost = tCost[current] + cost(current, neighbor)
+                        if tCost[neighbor] == nil or tmpCost < tCost[neighbor] then
+                            cameFrom[neighbor] = current
+                            tCost[neighbor] = tmpCost
+                            open:insert(tmpCost + heuristic(neighbor), neighbor)
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return nil
 end)
 
 return aStar
