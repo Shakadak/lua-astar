@@ -85,5 +85,18 @@ local function goal(targets)
     end
 end
 
--- this time we cannot pass by B, it should display `D → E → C → A`
+-- This time we cannot pass by B, it should display `D → E → C → A`
 print(pathToString(simpleAStar(goal({"A"}), "D")))
+
+-- We could now considere that both `B` and `D` are point of interest,
+-- and we want to get to one of them, we do not particularly care
+-- but we want the one with the shorter travel. Our graph is too simple
+-- to present something meaningful here, but by changing the starting
+-- node, we can show how the path differe.
+
+-- Starting with `C` should give us either `C → A → B` or `C → E → D`
+print(pathToString(simpleAStar(goal({"B", "D"}), "C")))
+-- Starting with `A` should give us `A → B`
+print(pathToString(simpleAStar(goal({"B", "D"}), "A")))
+-- Starting with `E` should give us `E → D`
+print(pathToString(simpleAStar(goal({"B", "D"}), "E")))
