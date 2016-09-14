@@ -1,5 +1,4 @@
 local aStar = require "AStar"
-local HOF   = require "HOF"
 
 -- Here we define our graph. A simple table pointing containing for each key (node)
 -- an array of node
