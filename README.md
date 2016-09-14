@@ -1,7 +1,7 @@
 # lua-astar
 A simple implementation of the A* pathfinding algorithm
 
-# How to use
+# How to use it
 The `aStar` function expect a few more arguments than most other implementations available anywhere.  
 Here is a reproduction of the `example.lua` file:
 
