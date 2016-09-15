@@ -1,9 +1,6 @@
 local modpath = ""
-for i = 1, select('#', ...) do
-	if modpath == "" then
-		modpath = select(i, ...):match(".+/") or ""
-	end
-end
+modpath = select(1, ...):match(".+/") or modpath
+modpath = select(1, ...):match(".+%.") or modpath
 
 local PQ = require (modpath .. "PQ")
 local HOF = require (modpath .. "HOF")
