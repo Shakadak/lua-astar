@@ -61,15 +61,14 @@ end
 To avoid repeated call of the same functions, we will define a `simpleAStar`
 in order to concern ourselves only with the goal and the start.
 ```
-local simpleAStar = aStar(expand, cost, heuristic)
+local simpleAStar = aStar(expand)(cost)(heuristic)
 ```
-You may call `aStar` in whichever way you want
-`aStar(expand)(cost)(heuristic)` is just as valid
-just make sure to apply the arguments in the correct order.
+Because this is the barbone version, you must pass each argument separatly.
+Just make sure to apply the arguments in the correct order.
 
 We can now ask `simpleAStar` to find the path from `A` to `D`.
 ```
-local path = simpleAStar(goalD, "A")
+local path = simpleAStar(goalD)("A")
 ```
 The only thing left to do is display the path we found.
 We do need a function to convert our path to something printable.
@@ -107,7 +106,7 @@ end
 ```
 This time we cannot pass by B, it should display `D → E → C → A`.
 ```
-print(pathToString(simpleAStar(goal({"A"}), "D")))
+print(pathToString(simpleAStar(goal({"A"}))("D")))
 ```
 We could now considere that both `B` and `D` are point of interest,
 and we want to get to one of them, we do not particularly care
@@ -117,13 +116,13 @@ node, we can show how the path differe.
 
 Starting with `C` should give us either `C → A → B` or `C → E → D`.
 ```
-print(pathToString(simpleAStar(goal({"B", "D"}), "C")))
+print(pathToString(simpleAStar(goal({"B", "D"}))("C")))
 ```
 Starting with `A` should give us `A → B`.
 ```
-print(pathToString(simpleAStar(goal({"B", "D"}), "A")))
+print(pathToString(simpleAStar(goal({"B", "D"}))("A")))
 ```
 Starting with `E` should give us `E → D`.
 ```
-print(pathToString(simpleAStar(goal({"B", "D"}), "E")))
+print(pathToString(simpleAStar(goal({"B", "D"}))("E")))
 ```
