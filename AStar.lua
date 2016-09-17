@@ -23,13 +23,6 @@ PQ.insert = function (self, priority, elem)
     end
 end
 
-PQ.lookup = function(self, value)
-    for p, v in pairs(self) do
-        if v == value then return p, v end
-    end
-    return nil, nil
-end
-
 PQ.pop = function (self)
     if self.n == 0 then return nil end
     local ret = self[1]
