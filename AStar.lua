@@ -56,12 +56,12 @@ end
 
 local function backtrack(last, cameFrom)
     local current = last
-	local path = {}
+    local path = {}
     while current ~= nil do
         table.insert(path, 1, current)
         current = cameFrom[current]
-	end
-	return path
+    end
+    return path
 end
 
 -- aStar:
