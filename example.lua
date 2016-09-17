@@ -14,7 +14,8 @@ graph["D"] = {"E"}
 -- ↓     ⤢
 -- B → D
 
--- First we need to define a function that, given a node, returns an array/table of node
+-- First we need to define a function that, given a node, returns an array `{node} / {index = node } / {key = node}`
+-- of the nodes linked to the given node
 -- Since our graph is simply defined, it will be straightforward.
 local function expand(n)
     return graph[n]
