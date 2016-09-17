@@ -14,7 +14,7 @@ graph["H"] = {"E"}
 
 -- So we currently have the following representation
 -- A ↔ C ↔ E ← H
--- ↓     ⤢   ↖ ↕
+-- ↓     ⤢   ↖ ↑
 -- B → D ↔ F ↔ G
 
 -- First we need to define a function that, given a node, returns an array `{node} / {index = node } / {key = node}`
