@@ -129,3 +129,12 @@ Starting with `E` should give us `E → D`.
 ```lua
 print(pathToString(simpleAStar(goal({"B", "D"}))("E")))
 ```
+
+Starting with `H` should give us `H → E → D`.
+```lua
+print(pathToString(simpleAStar(goal({"B", "D"}))("H")))
+```
+Starting with `A` should give `A → B → D → F → G → H`
+```lua
+print(pathToString(simpleAStar(goal({"H"}))("A")))
+```
