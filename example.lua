@@ -7,12 +7,15 @@ graph["A"] = {"B", "C"}
 graph["B"] = {"D"}
 graph["C"] = {"A", "E"}
 graph["E"] = {"C", "D"}
-graph["D"] = {"E"}
+graph["D"] = {"E", "F"}
+graph["F"] = {"D", "G"}
+graph["G"] = {"F", "H", "E"}
+graph["H"] = {"E"}
 
 -- So we currently have the following representation
--- A ↔ C ↔ E
--- ↓     ⤢
--- B → D
+-- A ↔ C ↔ E ← H
+-- ↓     ⤢   ↖ ↕
+-- B → D ↔ F ↔ G
 
 -- First we need to define a function that, given a node, returns an array `{node} / {index = node } / {key = node}`
 -- of the nodes linked to the given node
@@ -99,3 +102,8 @@ print(pathToString(simpleAStar(goal({"B", "D"}))("C")))
 print(pathToString(simpleAStar(goal({"B", "D"}))("A")))
 -- Starting with `E` should give us `E → D`.
 print(pathToString(simpleAStar(goal({"B", "D"}))("E")))
+
+-- Starting with `H` should give us `H → E → D`.
+print(pathToString(simpleAStar(goal({"B", "D"}))("H")))
+-- Starting with `A` should give `A → B → D → F → G → H`
+print(pathToString(simpleAStar(goal({"H"}))("A")))
