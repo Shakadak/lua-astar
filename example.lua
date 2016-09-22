@@ -1,4 +1,8 @@
 local aStar = require "AStar"
+-- local Utils = require "Utils" -- Uncomment if wanting to test the dead end without empty neighbors
+
+-- local compose = Utils.compose
+-- local fromNil = Utils.fromNil
 
 -- Here we define our graph. A simple table pointing containing for each key (node)
 -- an array of node
@@ -22,14 +26,23 @@ graph["H"] = {"E"}
 -- Since our graph is simply defined, it will be straightforward.
 local function expand(n)
     return graph[n]
+    -- return fromNil({})(graph[n])
 end
+-- fromNil is not needed as our graph is fully defined, but in case we wanted to be lazy
+-- and define a dead end, simply doing something like
+--     graph["B"] = {"D", "I"}
+-- would suffice with the `expand` function above. That would also mean that any mistake
+-- in our graph would be hidden.
 
 -- Now we need to define a function that, given two nodes, return the cost of going
 -- from the first to the second.
 -- Again, we want to keep it simple. Our graph does not hold these value, so we will
 -- simply return `1` every time.
-local function cost(from, to)
-    return 1
+-- As needed, we will define a curried function.
+local function cost(from)
+    return function(to)
+        return 1
+    end
 end
 
 -- Now we need to define a function that, given a node, return the estimated cost

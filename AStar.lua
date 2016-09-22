@@ -69,11 +69,13 @@ end
 --                  neighbors must be values, not keys, as they are discarded
 --      - cost:     function that take two nodes, `from` and `to`, and return the cost
 --                  to go from `from` to `to`
+--                  must be curried
 --      - heuristic:function that takes a node and return the estimated cost to reach
 --                  the goal
 --      - goal:     function that takes a node and return whether the goal has been
 --                  reached or not
 --      - start:    the starting node
+--
 -- return nil in case of failure
 --        the ordered path in case of success, as an array
 local function aStar(expand)
@@ -94,16 +96,15 @@ local function aStar(expand)
                 return backtrack(current, cameFrom)
             else
                 closed[current] = true
+                local costFromCurrentTo = cost(current)
                 local neighbors = expand(current)
-                if neighbors ~= nil then
-                    for _, neighbor in pairs(neighbors) do
-                        if not closed[neighbor] then
-                            local tmpCost = tCost[current] + cost(current, neighbor)
-                            if tCost[neighbor] == nil or tmpCost < tCost[neighbor] then
-                                cameFrom[neighbor] = current
-                                tCost[neighbor] = tmpCost
-                                open:insert(tmpCost + heuristic(neighbor), neighbor)
-                            end
+                for _, neighbor in pairs(neighbors) do
+                    if not closed[neighbor] then
+                        local tmpCost = tCost[current] + costFromCurrentTo(neighbor)
+                        if tCost[neighbor] == nil or tmpCost < tCost[neighbor] then
+                            cameFrom[neighbor] = current
+                            tCost[neighbor] = tmpCost
+                            open:insert(tmpCost + heuristic(neighbor), neighbor)
                         end
                     end
                 end
