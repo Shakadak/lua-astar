@@ -79,10 +79,10 @@ end
 -- return nil in case of failure
 --        the ordered path in case of success, as an array
 local function aStar(expand)
-    return function(cost)
-    return function(heuristic)
-    return function(goal)
-    return function(start)
+    return  function(cost)
+    return  function(heuristic)
+    return  function(goal)
+    return  function(start)
         local open = PQ.new()
         local closed = {}
         local cameFrom = {}
@@ -97,8 +97,7 @@ local function aStar(expand)
             else
                 closed[current] = true
                 local costFromCurrentTo = cost(current)
-                local neighbors = expand(current)
-                for _, neighbor in pairs(neighbors) do
+                for _, neighbor in pairs(expand(current)) do
                     if not closed[neighbor] then
                         local tmpCost = tCost[current] + costFromCurrentTo(neighbor)
                         if tCost[neighbor] == nil or tmpCost < tCost[neighbor] then
