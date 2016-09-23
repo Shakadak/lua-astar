@@ -52,7 +52,14 @@ PQ.pop = function (self)
     return ret.v
 end
 
-
+local function fromNil(default)
+    return function(maybeNil)
+        if maybeNil == nil
+            then return default
+            else return maybeNil
+        end
+    end
+end
 
 local function backtrack(last, cameFrom)
     local current = last
@@ -100,7 +107,7 @@ local function aStar(expand)
                 for _, neighbor in pairs(expand(current)) do
                     if not closed[neighbor] then
                         local tmpCost = tCost[current] + costFromCurrentTo(neighbor)
-                        if tCost[neighbor] == nil or tmpCost < tCost[neighbor] then
+                        if tmpCost < fromNil(math.huge)(tCost[neighbor]) then
                             cameFrom[neighbor] = current
                             tCost[neighbor] = tmpCost
                             open:insert(tmpCost + heuristic(neighbor), neighbor)
