@@ -103,7 +103,7 @@ print(pathToString(path))
 ```
 
 Now we want the path to go from `D` to `A`.
-For future reuse, we will define a curryied function that simply check
+For future reuse, we will define a curried function that simply check
 if our node is in an array of node.
 ```lua
 local function goal(targets)
