@@ -73,7 +73,7 @@ in order to concern ourselves only with the goal and the start.
 ```lua
 local simpleAStar = aStar(expand)(cost)(heuristic)
 ```
-Because this is the barbone version, you must pass each argument separatly.
+Because aStar is curried, you must pass each argument separatly.
 Just make sure to apply the arguments in the correct order.
 
 We can now ask `simpleAStar` to find the path from `A` to `D`.
