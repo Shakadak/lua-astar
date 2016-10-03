@@ -61,6 +61,20 @@ local function fromNil(default)
     end
 end
 
+local function onNil(default)
+    return  function(f)
+    return  function(x)
+        if x == nil
+        then return default
+        else return f(x)
+        end
+end end end
+
+local function inferior(x)
+    return     function(y)
+        return x < y
+end end
+
 local function backtrack(last, cameFrom)
     local current = last
     local path = {}
@@ -107,7 +121,7 @@ local function aStar(expand)
                 for _, neighbor in pairs(expand(current)) do
                     if not closed[neighbor] then
                         local tmpCost = tCost[current] + costFromCurrentTo(neighbor)
-                        if tmpCost < fromNil(math.huge)(tCost[neighbor]) then
+                        if onNil(true)(inferior(tmpCost))(tCost[neighbor]) then
                             cameFrom[neighbor] = current
                             tCost[neighbor] = tmpCost
                             open:insert(tmpCost + heuristic(neighbor), neighbor)
