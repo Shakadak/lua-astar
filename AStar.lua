@@ -52,7 +52,7 @@ PQ.pop = function (self)
     return ret.v
 end
 
-local function fromNil(default)
+local function fromMaybe(default)
     return function(maybeNil)
         if maybeNil == nil
             then return default
@@ -61,7 +61,7 @@ local function fromNil(default)
     end
 end
 
-local function onNil(default)
+local function maybe(default)
     return  function(f)
     return  function(x)
         if x == nil
@@ -121,7 +121,7 @@ local function aStar(expand)
                 for _, neighbor in pairs(expand(current)) do
                     if not closed[neighbor] then
                         local tmpCost = tCost[current] + costFromCurrentTo(neighbor)
-                        if onNil(true)(inferior(tmpCost))(tCost[neighbor]) then
+                        if maybe(true)(inferior(tmpCost))(tCost[neighbor]) then
                             cameFrom[neighbor] = current
                             tCost[neighbor] = tmpCost
                             open:insert(tmpCost + heuristic(neighbor), neighbor)
