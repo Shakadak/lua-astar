@@ -4,7 +4,7 @@ local aStar = require "AStar"
 -- local compose = Utils.compose
 -- local fromNil = Utils.fromNil
 
--- Here we define our graph. A simple table pointing containing for each key (node)
+-- Here we define our graph. A simple table containing for each key (node)
 -- an array of node
 local graph = {}
 graph["A"] = {"B", "C"}
