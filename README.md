@@ -8,7 +8,7 @@ Here is a reproduction of the `example.lua` file:
 ```lua
 local aStar = require "AStar"
 ```
-Here we define our graph. A simple table pointing containing for each key (node)
+Here we define our graph. A simple table containing for each key (node)
 an array of node.
 ```lua
 local graph = {}
